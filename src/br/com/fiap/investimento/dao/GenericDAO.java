@@ -1,15 +1,21 @@
 package br.com.fiap.investimento.dao;
 
-public interface GenericDAO {
+import java.util.List;
 
-	public void cadastrar();
+import br.com.fiap.investimento.exceptions.DadoNaoAlteradoException;
+import br.com.fiap.investimento.exceptions.DadoNaoRemovidoException;
+import br.com.fiap.investimento.exceptions.DataBaseException;
+
+public interface GenericDAO<E extends Object, I> {
+
+	public I cadastrar(E entidade) throws DataBaseException ;
 	
-	public void excluir();
+	public void excluir(I chave) throws DataBaseException, DadoNaoRemovidoException;
 	
-	public void alterar();
+	public void alterar(E entidade) throws DataBaseException, DadoNaoAlteradoException;
 	
-	public void consultarPorId();
+	public E consultarPorId(I chave) throws DataBaseException;
 	
-	public void buscarTodos();
+	public List<E> buscarTodos() throws DataBaseException;
 	
 }
